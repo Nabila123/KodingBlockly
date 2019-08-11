@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Blockly for the Web Codelab</title>
+
+    <link
+      rel="stylesheet"
+      href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css"
+    />
+    <link rel="stylesheet" href="include/app-complete/styles/index.css" />
+  </head>
+
+  <body mode="maker">
+    <button class=" newMaker mode-maker mdl-button" id="edit">
+      Edit
+    </button>
+    <button class=" newMaker mode-edit mdl-button mdl-js-button" id="done">
+      Done
+    </button>
+    <button class=" newMaker mode-blockly mdl-button mdl-js-button" id="save">
+      Save
+    </button>
+
+    <div class="maker" style="margin-top: 1em">
+      <div>
+        <div class="1 button mdl-color--amber-500" id="data">1</div>
+        <div class="2 button mdl-color--yellow-500" id="data">2</div>
+        <div class="3 button mdl-color--lime-500" id="data">3</div>
+      </div>
+      <div>
+        <div class="4 button mdl-color--pink-500" id="data">4</div>
+        <div class="5 button mdl-color--red-500" id="data">5</div>
+        <div class="6 button mdl-color--light-green-500" id="data">6</div>
+      </div>
+      <div>
+        <div class="7 button mdl-color--cyan-500" id="data">7</div>
+        <div class="8 button mdl-color--teal-500" id="data">8</div>
+        <div class="9 button mdl-color--green-500" id="data">9</div>
+      </div>
+    </div>
+    <p
+      class="hint mode-edit"
+      style=" margin-top: -4em; margin-left: -26em; height: 4em"
+    >
+      Tap any button to edit its code. <br />When complete, press Done.
+    </p>
+
+    <div class="blockly-editor">
+      <div id="blockly-div" style="height: 500px; width: 500px;"></div>
+      <xml id="toolbox" style="display: none">
+        <category name="Loops" colour="120">
+          <block type="controls_repeat_ext">
+            <value name="TIMES">
+              <shadow type="math_number">
+                <field name="NUM">5</field>
+              </shadow>
+            </value>
+          </block>
+        </category>
+        <category name="Sounds" colour="355">
+          <block type="play_sound"></block>
+        </category>
+      </xml>
+    </div>
+
+    <script src="assets/blockly/blockly_compressed.js"></script>
+    <script src="assets/blockly/blocks_compressed.js"></script>
+    <script src="assets/blockly/javascript_compressed.js"></script>
+    <script src="assets/blockly/msg/js/en.js"></script>
+
+    <script src="include/app-complete/scripts/music_maker.js"></script>
+    <script src="include/app-complete/scripts/sound_blocks.js"></script>
+    <script src="include/app-complete/scripts/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>LATIHAN BLOCKLY</title>
+    <script src="assets/blockly/blockly_compressed.js"></script>
+    <script src="assets/blockly/blocks_compressed.js"></script>
+    <script src="assets/blockly/msg/js/en.js"></script>
+    <script src="assets/blockly/javascript_compressed.js"></script>
+    <script src="assets/blockly/test_blocks.js"></script>
+
+    <style>
+      #red {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background-color: white;
+        border: solid 1px black;
+        float: left;
+        margin: 10px;
+        margin-left: 2em;
+        margin-top: 4em;
+      }
+      #yellow {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background-color: white;
+        border: solid 1px black;
+        float: left;
+        margin: 10px;
+        margin-top: 4em;
+      }
+      #green {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background-color: white;
+        border: solid 1px black;
+        float: left;
+        margin: 10px;
+        margin-top: 4em;
+      }
+      #capacity {
+        color: red;
+      }
+
+      .myButton {
+        -moz-box-shadow: inset 0px 1px 0px 0px #f5978e;
+        -webkit-box-shadow: inset 0px 1px 0px 0px #f5978e;
+        box-shadow: inset 0px 1px 0px 0px #f5978e;
+        background: -webkit-gradient(
+          linear,
+          left top,
+          left bottom,
+          color-stop(0.05, #f24537),
+          color-stop(1, #c62d1f)
+        );
+        background: -moz-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+        background: -webkit-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+        background: -o-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+        background: -ms-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+        background: linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24537', endColorstr='#c62d1f',GradientType=0);
+        background-color: #f24537;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        border-radius: 6px;
+        border: 1px solid #d02718;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: Arial;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 6px 24px;
+        text-decoration: none;
+        text-shadow: 0px 1px 0px #810e05;
+        margin: 6px 6px;
+      }
+      .myButton:hover {
+        background: -webkit-gradient(
+          linear,
+          left top,
+          left bottom,
+          color-stop(0.05, #c62d1f),
+          color-stop(1, #f24537)
+        );
+        background: -moz-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+        background: -webkit-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+        background: -o-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+        background: -ms-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+        background: linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f', endColorstr='#f24537',GradientType=0);
+        background-color: #c62d1f;
+      }
+      .myButton:active {
+        position: relative;
+        top: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <b style="width: 13em; height:3em;"
+      >You have <span id="capacity"></span> block(s) left.</b
+    >
+    <div
+      id="blocklyDiv"
+      style="margin-top: 3em; margin-left: -15em; height: 480px; width: 600px;"
+    ></div>
+    <xml
+      xmlns="https://developers.google.com/blockly/xml"
+      id="toolbox"
+      style="display: none"
+    >
+      <category name="Colour">
+        <block type="lightswitch">
+          <field name="lightcolor">red</field>
+          <field name="switch">on</field>
+        </block>
+        <block type="switch">
+          <field name="switch">red</field>
+        </block>
+      </category>
+      <category name="Variable" colour="#65c81" custom="VARIABLE"></category>
+    </xml>
+    <div id="resultBox">
+      <div id="red"></div>
+      <div id="yellow"></div>
+      <div id="green"></div>
+    </div>
+    <p style="width: 19em; height:3em; margin-top: 7em; margin-left: -10em;">
+      <button class="myButton" onclick="showCode()">Show</button
+      ><button class="myButton" onclick="runCode()">Run</button>
+    </p>
+
+    <script>
+      //ini merupakan varibel untuk membuat workspace secara MENYELURUH
+      var workspace = Blockly.inject('blocklyDiv', {
+        toolbox: document.getElementById('toolbox'),
+        collapse: true,
+        comments: true,
+        disable: true,
+        maxBlocks: Infinity,
+        trashcan: true,
+        horizontalLayout: false,
+        toolboxPosition: 'start',
+        css: true,
+        media: 'assets/blockly/media/',
+        rtl: false,
+        scrollbars: true,
+        sounds: true,
+        oneBasedIndex: true,
+        maxBlocks: 2,
+        zoom: {
+          controls: true,
+          wheel: true,
+          startScale: 1,
+          maxScale: 3,
+          minScale: 0.3,
+          scaleSpeed: 1.2
+        }
+      });
+
+      //FUNGSI UNTUK MENAMPILKAN BATASAN BLOCK
+      function onchange(event) {
+        document.getElementById(
+          'capacity'
+        ).textContent = workspace.remainingCapacity();
+      }
+
+      workspace.addChangeListener(onchange);
+      onchange();
+
+      function showCode() {
+        //digunakan untuk membaca code melalui alert
+        Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+        //Blockly.JavaScript.valueToCode(block, 'FROM', Blockly.JavaScript.ORDER_ADDITION) || '0'
+        alert(Blockly.JavaScript.workspaceToCode(workspace));
+        // alert(code);
+      }
+
+      function runCode() {
+        if (
+          document.getElementById('red').style.backgroundColor == 'red' &&
+          document.getElementById('yellow').style.backgroundColor == 'yellow' &&
+          document.getElementById('green').style.backgroundColor == 'green'
+        ) {
+          alert('YOU GOT IT...!!!');
+        } else {
+          //alert("ini bisa kok!!");
+          window.LoopTrap = 1000;
+          Blockly.JavaScript.INFINITE_LOOP_TRAP =
+            'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
+          Blockly.JavaScript.addReservedWords('code');
+          var code = Blockly.JavaScript.workspaceToCode(workspace);
+          try {
+            eval(code);
+          } catch (e) {
+            alert(e);
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
